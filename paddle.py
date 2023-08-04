@@ -1,32 +1,47 @@
 from turtle import Turtle
-import time
 
 
 LEFT_PADDLE_LOCATION_COORDINATES = [(-380, 50), (-380, 30), (-380, 10), (-380, -10), (-380, -30)]
+RIGHT_PADDLE_LOCATION_COORDINATES = [(380, 50), (380, 30), (380, 10), (380, -10), (380, -30)]
 
 
 class Paddle(Turtle):
 
-    def __init__(self):
+    def __init__(self, side):
         super().__init__()
         self.segments = []
-        self.make_paddle()
-        self.head = self.segments[0]
+        self.paddle_side = side
+        if side == "Left":
+            self.make_left_paddle()
+        elif side == "Right":
+            self.make_right_paddle()
 
-    def make_paddle(self):
+    def generic_paddle_maker(self):
+        segment = Turtle()
+        segment.color("white")
+        segment.penup()
+        segment.shape("square")
+        segment.speed("fastest")
+        return segment
+
+    def make_left_paddle(self):
         for location in LEFT_PADDLE_LOCATION_COORDINATES:
-            current_segment = Turtle()
-            current_segment.color("white")
-            current_segment.penup()
-            current_segment.shape("square")
+            current_segment = self.generic_paddle_maker()
+            current_segment.goto(location)
+            self.segments.append(current_segment)
+
+    def make_right_paddle(self):
+        for location in RIGHT_PADDLE_LOCATION_COORDINATES:
+            current_segment = self.generic_paddle_maker()
             current_segment.goto(location)
             self.segments.append(current_segment)
 
     def move_up(self):
-        self.head = self.segments[0]
-        self.setheading(90)
-        self.forward(20)
-
+        for segment in self.segments:
+            segment.setheading(90)
+            segment.forward(20)
 
     def move_down(self):
-        self.head = self.segments[-1]
+        for segment in self.segments:
+            segment.setheading(270)
+            segment.forward(20)

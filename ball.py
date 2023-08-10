@@ -1,5 +1,7 @@
 from turtle import Turtle
-from random import randint
+
+
+INITIAL_MOVE_DISTANCE = 10
 
 
 class Ball(Turtle):
@@ -9,11 +11,16 @@ class Ball(Turtle):
         self.shape("circle")
         self.penup()
         self.color("white")
-
-    def initial_move(self):
-        random_heading = randint(136, 224)
-        self.setheading(random_heading)
-        self.forward(20)
+        self.x_move = 10
+        self.y_move = 10
 
     def move(self):
-        self.forward(20)
+        new_x_coord = self.xcor() + self.x_move
+        new_y_coord = self.ycor() + self.y_move
+        self.goto(new_x_coord, new_y_coord)
+
+    def bounce(self):
+        self.y_move *= -1
+
+    def paddle_bounce(self):
+        self.x_move *= -1

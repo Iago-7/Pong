@@ -1,47 +1,28 @@
 from turtle import Turtle
 
 
-LEFT_PADDLE_LOCATION_COORDINATES = [(-380, 50), (-380, 30), (-380, 10), (-380, -10), (-380, -30)]
-RIGHT_PADDLE_LOCATION_COORDINATES = [(380, 50), (380, 30), (380, 10), (380, -10), (380, -30)]
+PADDLE_Y_AXIS_UPPER_BOUND = 260
+PADDLE_Y_AXIS_LOWER_BOUND = -240
+PADDLE_MOVE_DISTANCE = 20
 
 
 class Paddle(Turtle):
 
-    def __init__(self, side):
+    def __init__(self, x_coord, y_coord):
         super().__init__()
-        self.segments = []
-        self.paddle_side = side
-        if side == "Left":
-            self.make_left_paddle()
-        elif side == "Right":
-            self.make_right_paddle()
-
-    def generic_paddle_maker(self):
-        segment = Turtle()
-        segment.color("white")
-        segment.penup()
-        segment.shape("square")
-        segment.speed("fastest")
-        return segment
-
-    def make_left_paddle(self):
-        for location in LEFT_PADDLE_LOCATION_COORDINATES:
-            current_segment = self.generic_paddle_maker()
-            current_segment.goto(location)
-            self.segments.append(current_segment)
-
-    def make_right_paddle(self):
-        for location in RIGHT_PADDLE_LOCATION_COORDINATES:
-            current_segment = self.generic_paddle_maker()
-            current_segment.goto(location)
-            self.segments.append(current_segment)
+        self.color("white")
+        self.penup()
+        self.shape("square")
+        self.shapesize(stretch_wid=5, stretch_len=1)
+        self.speed("fastest")
+        self.goto(x_coord, y_coord)
 
     def move_up(self):
-        for segment in self.segments:
-            segment.setheading(90)
-            segment.forward(20)
+        if self.ycor() < PADDLE_Y_AXIS_UPPER_BOUND:
+            new_y_coord = self.ycor() + PADDLE_MOVE_DISTANCE
+            self.goto(self.xcor(), new_y_coord)
 
     def move_down(self):
-        for segment in self.segments:
-            segment.setheading(270)
-            segment.forward(20)
+        if self.ycor() > PADDLE_Y_AXIS_LOWER_BOUND:
+            new_y_coord = self.ycor() - PADDLE_MOVE_DISTANCE
+            self.goto(self.xcor(), new_y_coord)

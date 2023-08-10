@@ -6,6 +6,9 @@ import time
 
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 800
+LEFT_PADDLE_X_COORD = -350
+RIGHT_PADDLE_X_COORD = 350
+Y_COORD = 0
 
 
 screen = Screen()
@@ -14,11 +17,10 @@ screen.bgcolor("black")
 screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
 screen.title("PONG")
 
-left_paddle = Paddle("Left")
-right_paddle = Paddle("Right")
+left_paddle = Paddle(LEFT_PADDLE_X_COORD, Y_COORD)
+right_paddle = Paddle(RIGHT_PADDLE_X_COORD, Y_COORD)
 
 ball = Ball()
-
 
 screen.listen()
 screen.onkey(left_paddle.move_up, "w")
@@ -27,11 +29,24 @@ screen.onkey(right_paddle.move_up, "Up")
 screen.onkey(right_paddle.move_down, "Down")
 
 game_is_running = True
-ball.initial_move()
 while game_is_running:
-    screen.update()
     time.sleep(0.1)
+    screen.update()
     ball.move()
+    if ball.ycor() >= 280 or ball.ycor() <= -280:
+        ball.bounce()
+    if ball.xcor() >= 350:
+        if right_paddle.distance(ball) <= 50:
+            ball.paddle_bounce()
+        elif ball.xcor() >= 370:
+            print("point left")
+            game_is_running = False
+    if ball.xcor() <= -350:
+        if left_paddle.distance(ball) < 60:
+            ball.paddle_bounce()
+        elif ball.xcor() <= -370:
+            print("point right")
+            game_is_running = False
 
 
 

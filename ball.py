@@ -1,7 +1,9 @@
 from turtle import Turtle
 
 
-INITIAL_MOVE_DISTANCE = 10
+INITIAL_MOVE_SPEED = 0.05
+BALL_MOVE_DISTANCE = 10
+MOVE_SPEED_INCREASE_RATE = 1.08
 
 
 class Ball(Turtle):
@@ -11,8 +13,9 @@ class Ball(Turtle):
         self.shape("circle")
         self.penup()
         self.color("white")
-        self.x_move = 1
-        self.y_move = 1
+        self.x_move = BALL_MOVE_DISTANCE
+        self.y_move = BALL_MOVE_DISTANCE
+        self.move_speed = INITIAL_MOVE_SPEED
         self.direction = "right"
 
     def move(self):
@@ -31,5 +34,9 @@ class Ball(Turtle):
             self.direction = "left"
         elif self.direction == "left":
             self.direction = "right"
+        self.move_speed = INITIAL_MOVE_SPEED
         self.x_direction_reversal()
         self.goto(0, 0)
+
+    def increase_speed(self):
+        self.move_speed /= MOVE_SPEED_INCREASE_RATE

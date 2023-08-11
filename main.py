@@ -40,8 +40,8 @@ right_score = Scoreboard(RIGHT_SCOREBOARD_COORD)
 screen.listen()
 screen.onkey(left_paddle.move_up, "w")
 screen.onkey(left_paddle.move_down, "s")
-screen.onkey(right_paddle.move_up, "Up")
-screen.onkey(right_paddle.move_down, "Down")
+screen.onkey(right_paddle.move_up, "o")
+screen.onkey(right_paddle.move_down, "l")
 
 game_is_running = True
 while game_is_running:

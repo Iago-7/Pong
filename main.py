@@ -7,6 +7,10 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 800
 LEFT_PADDLE_X_COORD = -350
 RIGHT_PADDLE_X_COORD = 350
+FRONT_OF_LEFT_PADDLE_X_COORD = -330
+FRONT_OF_RIGHT_PADDLE_X_COORD = 330
+SCREEN_UPPER_BOUND = 280
+SCREEN_LOWER_BOUND = -280
 Y_COORD = 0
 
 
@@ -33,14 +37,16 @@ while game_is_running:
     ball.move()
     if ball.ycor() >= 280 or ball.ycor() <= -280:
         ball.bounce()
-    if ball.xcor() >= 350:
-        if right_paddle.distance(ball) <= 50:
+    if ball.xcor() >= FRONT_OF_RIGHT_PADDLE_X_COORD:
+        if right_paddle.distance(ball) <= 50 and ball.direction == "right":
+            ball.direction = "left"
             ball.paddle_bounce()
         elif ball.xcor() >= 352:
             print("point left")
             game_is_running = False
-    if ball.xcor() <= -350:
-        if left_paddle.distance(ball) <= 50:
+    if ball.xcor() <= FRONT_OF_LEFT_PADDLE_X_COORD:
+        if left_paddle.distance(ball) <= 50 and ball.direction == "left":
+            ball.direction = "right"
             ball.paddle_bounce()
         elif ball.xcor() <= -352:
             print("point right")

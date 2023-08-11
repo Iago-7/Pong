@@ -13,6 +13,7 @@ class Ball(Turtle):
         self.color("white")
         self.x_move = 1
         self.y_move = 1
+        self.direction = "right"
 
     def move(self):
         new_x_coord = self.xcor() + self.x_move

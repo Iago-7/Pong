@@ -20,8 +20,16 @@ class Ball(Turtle):
         new_y_coord = self.ycor() + self.y_move
         self.goto(new_x_coord, new_y_coord)
 
-    def bounce(self):
+    def y_direction_reversal(self):
         self.y_move *= -1
 
-    def paddle_bounce(self):
+    def x_direction_reversal(self):
         self.x_move *= -1
+
+    def reset_position(self):
+        if self.direction == "right":
+            self.direction = "left"
+        elif self.direction == "left":
+            self.direction = "right"
+        self.x_direction_reversal()
+        self.goto(0, 0)

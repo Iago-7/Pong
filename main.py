@@ -1,7 +1,6 @@
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
-import time
 
 
 SCREEN_HEIGHT = 600
@@ -30,7 +29,6 @@ screen.onkey(right_paddle.move_down, "Down")
 
 game_is_running = True
 while game_is_running:
-    time.sleep(0.1)
     screen.update()
     ball.move()
     if ball.ycor() >= 280 or ball.ycor() <= -280:
@@ -38,16 +36,14 @@ while game_is_running:
     if ball.xcor() >= 350:
         if right_paddle.distance(ball) <= 50:
             ball.paddle_bounce()
-        elif ball.xcor() >= 370:
+        elif ball.xcor() >= 352:
             print("point left")
             game_is_running = False
     if ball.xcor() <= -350:
-        if left_paddle.distance(ball) < 60:
+        if left_paddle.distance(ball) <= 50:
             ball.paddle_bounce()
-        elif ball.xcor() <= -370:
+        elif ball.xcor() <= -352:
             print("point right")
             game_is_running = False
-
-
 
 screen.exitonclick()

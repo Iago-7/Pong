@@ -4,6 +4,7 @@ from turtle import Turtle
 PADDLE_Y_AXIS_UPPER_BOUND = 260
 PADDLE_Y_AXIS_LOWER_BOUND = -240
 PADDLE_MOVE_DISTANCE = 20
+FULL_PADDLE_SIZE = 50
 
 
 class Paddle(Turtle):
@@ -13,7 +14,7 @@ class Paddle(Turtle):
         self.color("white")
         self.penup()
         self.shape("square")
-        self.shapesize(stretch_wid=5, stretch_len=1)
+        self.shapesize(stretch_wid=(FULL_PADDLE_SIZE/10), stretch_len=1)
         self.speed("fastest")
         self.goto(x_coord, y_coord)
 
